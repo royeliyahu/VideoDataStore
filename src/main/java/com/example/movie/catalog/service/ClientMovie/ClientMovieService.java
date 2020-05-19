@@ -15,9 +15,6 @@ public class ClientMovieService {
     @Autowired
     private ClientMovieRepository clientMovieRepository;
 
-//    @Autowired
-//    private DiscoveryClient discoveryClient;
-
     @Autowired
     // allowas an async calls  new way
     private WebClient.Builder webClientBuilder;
@@ -36,7 +33,7 @@ public class ClientMovieService {
         MovieListObj movieListObj = webClientBuilder.build()
                 .get()//use get method (post, update...)
 //                .uri("http://localhost:8082/movies/list/" + str)//not using Eureka
-                .uri("http://movie-info-service/movies/list/" + str)//not using Eureka
+                .uri("http://movie-info-service/movies/list/" + str)//using Eureka. must add @LoadBalanced to WebClient.Builder bean
                 .retrieve()//get the data
                 .bodyToMono(MovieListObj.class)//its an async call
                 .block();//wait until data will be fulfiled an async call, WO it it was a sync call
@@ -53,9 +50,6 @@ public class ClientMovieService {
 
     public List<ClientMovie> getClientMoviesForClient(int id) {
 
-//        discoveryClient.geti
-
-
         List<ClientMovie> clientMovies = new ArrayList<>();
 
         clientMovieRepository.findByClientId(id).forEach(clientMovies::add);
@@ -66,7 +60,7 @@ public class ClientMovieService {
             Movie movieInfo = webClientBuilder.build()
                     .get()//use get method (post, update...)
 //                    .uri("http://localhost:8082/movies/" + clientMovie.getMovieId())//not using Eureka
-                    .uri("http://movie-info-service/movies/" + clientMovie.getMovieId())//not using Eureka
+                    .uri("http://movie-info-service/movies/" + clientMovie.getMovieId())//using Eureka. must add @LoadBalanced to WebClient.Builder bean
                     .retrieve()//get the data
                     .bodyToMono(Movie.class)//its an async call
                     .block();//waite until data will be fulfiled an async call, WO it it was a sync call

@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Mon May 18 23:11:55 IDT 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-296a-0255-0000079a6ac0 
+Tue May 19 11:33:42 IDT 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0172-2c11-2bbe-00000426ef00 
 on database directory memory:C:\Users\Roy\IdeaProjects\movie.catalog.service\testdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5451c3a8 
 Loaded from file:/C:/Users/Roy/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=JetBrains s.r.o
