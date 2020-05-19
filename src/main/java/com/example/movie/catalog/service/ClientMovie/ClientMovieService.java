@@ -32,7 +32,6 @@ public class ClientMovieService {
         clientMovieRepository.findAll().forEach(clientMovies::add);
 
         String str;
-
         str = clientMovies.stream().map(clientMovie -> Integer.valueOf(clientMovie.getMovieId()).toString())
                 .collect(Collectors.joining(","));
 
