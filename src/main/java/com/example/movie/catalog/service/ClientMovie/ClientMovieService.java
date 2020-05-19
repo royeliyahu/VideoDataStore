@@ -2,9 +2,11 @@ package com.example.movie.catalog.service.ClientMovie;
 
 import com.netflix.discovery.DiscoveryClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,9 +21,14 @@ public class ClientMovieService {
     // allowas an async calls  new way
     private WebClient.Builder webClientBuilder;
 
+    @Value("${api.key}")//injected value from properties file
+    private String apiKey;
+
+
     public List<ClientMovie> getAllClientMovies() {
         List<ClientMovie> clientMovies = new ArrayList<>();
 
+        System.err.println("api key: " + apiKey);
         clientMovieRepository.findAll().forEach(clientMovies::add);
 
         String str;
@@ -30,13 +37,21 @@ public class ClientMovieService {
                 .collect(Collectors.joining(","));
 
         //add movie data from movie info service from movie list
-        MovieListObj movieListObj = webClientBuilder.build()
-                .get()//use get method (post, update...)
+        MovieListObj movieListObj = null;
+        try{
+            movieListObj = webClientBuilder.build()
+                    .get()//use get method (post, update...)
 //                .uri("http://localhost:8082/movies/list/" + str)//not using Eureka
-                .uri("http://movie-info-service/movies/list/" + str)//using Eureka. must add @LoadBalanced to WebClient.Builder bean
-                .retrieve()//get the data
-                .bodyToMono(MovieListObj.class)//its an async call
-                .block();//wait until data will be fulfiled an async call, WO it it was a sync call
+                    .uri("http://movie-info-service/movies/list/" + str)//using Eureka. must add @LoadBalanced to WebClient.Builder bean
+                    .retrieve()//get the data
+                    .bodyToMono(MovieListObj.class)//its an async call
+                    .timeout(Duration.ofSeconds(3))//adding timeout to manage threads in service
+                    .block();//wait until data will be fulfilled an async call, WO it it was a sync call
+        }
+        catch (Exception e){
+            System.err.println("Eureka is not working");
+            return clientMovies;
+        }
 
         List<Movie> movieInfo = movieListObj.getMovies();
 

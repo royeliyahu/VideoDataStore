@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.web.reactive.function.client.WebCl
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -17,7 +18,10 @@ public class MovieCatalogResourceApplication {
 	@Bean
 	@LoadBalanced//used with Eureka
 	public RestTemplate getRestTemplate(){
-		return new RestTemplate();
+		//adding timeout to manage threads and working speed
+		HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+		clientHttpRequestFactory.setConnectTimeout(3000);
+		return new RestTemplate(clientHttpRequestFactory);
 	}
 
 	@Bean
