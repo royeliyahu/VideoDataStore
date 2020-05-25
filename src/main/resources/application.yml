@@ -1,0 +1,10 @@
+#  client record
+martin:
+  id: 1
+  name: Martin D'vloper
+  type: Developer
+
+name: roy
+
+#setting active profile
+spring.profiles.active: test
