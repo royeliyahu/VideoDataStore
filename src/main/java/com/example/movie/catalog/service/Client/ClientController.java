@@ -1,5 +1,6 @@
 package com.example.movie.catalog.service.Client;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ public class ClientController {
     @Autowired
     ClientService clientService;
 
+    @ApiOperation(value = "value", notes = "notes", response = Client.class) //Swagger html info
     @RequestMapping("/clients")
     List<Client> getAllClients(){
         return clientService.getAllClients();
