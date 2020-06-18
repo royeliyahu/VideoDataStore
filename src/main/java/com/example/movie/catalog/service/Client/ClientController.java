@@ -29,4 +29,9 @@ public class ClientController {
     List<Client> getClientsByType(@PathVariable String type){
         return clientService.getClientsByType(type);
     }
+
+    @RequestMapping("/")
+    String root(){
+        return "Hi there, Rating Data Service is online!<br>please check swagger-ui.html# for available commands";
+    }
 }

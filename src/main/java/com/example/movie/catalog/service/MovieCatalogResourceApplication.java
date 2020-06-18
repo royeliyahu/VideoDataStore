@@ -61,8 +61,8 @@ public class MovieCatalogResourceApplication {
 				"title: Movie Catalog Service",
 				"description: second row",
 				"version: 1.0",
-				"turms of service: free",
-				new Contact("contact: roy", "url:", "email"),
+				"terms of service: free",
+				new Contact("contact: roy", "url:", "royeliyahu827@gmail.com"),
 				"licence",
 				"licence url",
 				Collections.emptyList()

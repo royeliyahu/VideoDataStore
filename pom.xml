@@ -12,6 +12,7 @@
 	<artifactId>BookStore</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>BookStore</name>
+	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -23,7 +24,7 @@
 				<spring-cloud-version>Greenwich.RELEASE</spring-cloud-version>
 	</properties>
 
-	//embedded DB
+<!--	embedded DB-->
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -77,6 +77,7 @@ public class ClientMovieService {
         }
         catch (Exception e){
             System.err.println("Eureka is not working");
+            System.err.println(e.getMessage());
             return clientMovies;
         }
 
